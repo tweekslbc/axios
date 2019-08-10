@@ -20,13 +20,7 @@
       </ul>
       <h2 id = 'title'></h2>
       <div id = 'results'>
-        <h5 class='header'>Id</h4>
-        <h5 class='header'>Name</h4>
-        <h5 class='header'>Phone</h4>
-        <h5 class='header'>State</h4>
-        <h5 class='header'>CatchPhrase</h4>
-        <h5 class='header'>CreatedAt</h4>
-        <h5 class='header'>UpdatedAt</h4>
+
         <table id='list'>
 
         </table>
@@ -37,19 +31,36 @@
         const loadData = async() => {
           const response = await axios.get('https://acme-users-api-rev.herokuapp.com/api/companies');
           const companies = response.data;
-          render(companies);
+          renderCompanies(companies);
         };
 
         const loadData2 = async()=> {
           const response2 = await axios.get('https://acme-users-api-rev.herokuapp.com/api/products');
           const products2 = response2.data;
-          render(products2);
+          renderProducts(products2);
         }
 
+        window.addEventListener('hashchange', ev=>{
+          if (window.location.hash === '#companies' || window.location.hash === '') {
+            loadData();
+          }
+          else if (window.location.hash === '#products'){
+            loadData2();
+          }
+        });
 
-
-        const render = (companies) => {
-          const html = companies.map (company => `
+        const renderCompanies = (companies) => {
+          let html = `
+          <tr>
+            <th>Id</th>
+            <th>Name</th>
+            <th>Phone</th>
+            <th>CatchPhrase</th>
+            <th>CreatedAt</th>
+            <th>UpdatedAt</th>
+          </tr>
+          `
+          html += companies.map (company => `
             <tr>
               <td>${ company.id }</td>
               <td>${ company.name }</td>
@@ -61,8 +72,33 @@
           `).join ('');
           list.innerHTML = html;
         };
+
+
+        const renderProducts = (products2) => {
+          let html = `
+          <tr>
+            <th>Id</th>
+            <th>Name</th>
+            <th>Description</th>
+            <th>SuggestedPrice</th>
+            <th>CreatedAt</th>
+            <th>UpdatedAt</th>
+          </tr>
+          `
+          html += products2.map (product => `
+            <tr>
+              <td>${ product.id }</td>
+              <td>${ product.name }</td>
+              <td>${ product.description }</td>
+              <td>${ product.suggestedPrice }</td>
+              <td>${ product.createdAt }</td>
+              <td>${ product.updatedAt }</td>
+            </tr>
+          `).join ('');
+          list.innerHTML = html;
+        };
         loadData();
-        loadData2();
+        //loadData2();
         //console.log(list);
         </script>
   </body>
