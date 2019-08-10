@@ -28,15 +28,22 @@
     </div>
       <script>
         const list = document.querySelector('#list');
+
         const loadData = async() => {
           const response = await axios.get('https://acme-users-api-rev.herokuapp.com/api/companies');
           const companies = response.data;
+          const count = companies.length;
+          document.getElementById('companiesLink').innerHTML = `Companies (${count})`;
+
           renderCompanies(companies);
+
         };
 
         const loadData2 = async()=> {
           const response2 = await axios.get('https://acme-users-api-rev.herokuapp.com/api/products');
           const products2 = response2.data;
+          const count = products2.length;
+          document.getElementById('productsLink').innerHTML = `Products (${count})`;
           renderProducts(products2);
         }
 
@@ -97,6 +104,7 @@
           `).join ('');
           list.innerHTML = html;
         };
+        loadData2();
         loadData();
         //loadData2();
         //console.log(list);
