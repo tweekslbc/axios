@@ -20,7 +20,16 @@
       </ul>
       <h2 id = 'title'></h2>
       <div id = 'results'>
-        <ul id = 'list'></ul>
+        <h5 class='header'>Id</h4>
+        <h5 class='header'>Name</h4>
+        <h5 class='header'>Phone</h4>
+        <h5 class='header'>State</h4>
+        <h5 class='header'>CatchPhrase</h4>
+        <h5 class='header'>CreatedAt</h4>
+        <h5 class='header'>UpdatedAt</h4>
+        <table id='list'>
+
+        </table>
       </div>
     </div>
       <script>
@@ -31,7 +40,16 @@
           render(companies);
         }
         const render = (companies) => {
-          const html = companies.map (company => `<li>${ company.name }</li>`).join ('');
+          const html = companies.map (company => `
+            <tr>
+              <td>${ company.id }</td>
+              <td>${ company.name }</td>
+              <td>${ company.phone }</td>
+              <td>${ company.catchPhrase }</td>
+              <td>${ company.createdAt }</td>
+              <td>${ company.updatedAt }</td>
+            </tr>
+          `).join ('');
           list.innerHTML = html;
         };
         loadData();
