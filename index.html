@@ -38,7 +38,14 @@
           const response = await axios.get('https://acme-users-api-rev.herokuapp.com/api/companies');
           const companies = response.data;
           render(companies);
+        };
+
+        const loadData2 = async()=> {
+          const response2 = await axios.get('https://acme-users-api-rev.herokuapp.com/api/products');
+          const products2 = response2.data;
+          render(products2);
         }
+
         const render = (companies) => {
           const html = companies.map (company => `
             <tr>
@@ -53,7 +60,8 @@
           list.innerHTML = html;
         };
         loadData();
-        console.log(list);
+        loadData2();
+        //console.log(list);
         </script>
   </body>
 </html>
